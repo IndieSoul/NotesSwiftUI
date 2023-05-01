@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @EnvironmentObject var viewModel: ViewModel
+    @StateObject var viewModel = ViewModel()
     @Environment(\.managedObjectContext) var context
     @FetchRequest(entity: Notes.entity(), sortDescriptors: [NSSortDescriptor(key: "date", ascending: true)]) var results: FetchedResults<Notes>
     
@@ -51,13 +51,16 @@ struct HomeView: View {
                 ToolbarItemGroup(placement: .primaryAction) {
                     Button(action: {
                         viewModel.show.toggle()
+                        viewModel.updateItem = nil
+                        viewModel.date = Date()
+                        viewModel.note = ""
                     }) {
                         Label("Agregar", systemImage: "plus")
                     }
                 }
             }
             .sheet(isPresented: $viewModel.show) {
-                AddNoteView()
+                AddNoteView(viewModel: viewModel)
             }
         }
         

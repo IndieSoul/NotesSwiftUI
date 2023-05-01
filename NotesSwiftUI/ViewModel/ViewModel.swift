@@ -19,6 +19,7 @@ class ViewModel: ObservableObject {
         let newNote = Notes(context: context)
         newNote.note = note
         newNote.date = date
+        newNote.id = UUID()
         
         do {
             try context.save()
@@ -34,7 +35,6 @@ class ViewModel: ObservableObject {
         do {
             try context.save()
             print("Delete")
-            show.toggle()
         } catch let error as NSError {
             print("Not delete \(error.localizedDescription)")
         }
@@ -44,6 +44,7 @@ class ViewModel: ObservableObject {
         updateItem = item
         note = item.note ?? ""
         date = item.date ?? Date()
+        updateItem.id = item.id
         show.toggle()
     }
     

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AddNoteView: View {
-    @EnvironmentObject var viewModel: ViewModel
+    @ObservedObject var viewModel : ViewModel
     @Environment(\.managedObjectContext) var context
     
     var body: some View {
@@ -45,7 +45,6 @@ struct AddNoteView: View {
 
 struct AddNoteView_Previews: PreviewProvider {
     static var previews: some View {
-        AddNoteView()
-            .environmentObject(ViewModel())
+        AddNoteView(viewModel: ViewModel())
     }
 }
